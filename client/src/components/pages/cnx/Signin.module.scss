@@ -1,0 +1,68 @@
+@use "../../../assets/styles/mixins" as mixin;
+.cnx {
+  width: 100%;
+  height: 80vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: var(--font-family-1);
+  background: linear-gradient(to bottom, #171436, #36325f, #f5bf78);
+
+  @include mixin.xs {
+    height:85vh;
+  }
+
+  .signin {
+    width: 35%;
+    height: 80%;
+    background-color: var(--background-color);
+    border-radius: 10px;
+    border: 1px solid var(--primary);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    @include mixin.xs {
+      width: 90%;
+      height: 70%;
+    }
+
+    h2 {
+      
+      padding: 5px;
+    }
+
+    .logo {
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      margin-top: 20px;
+    }
+
+    .form {
+      padding: 20px 10px;
+      width: 80%;
+
+      label {
+        font-family: var(--font-family-1);
+      }
+
+      input {
+        border-radius: 20px;
+        height: 3rem;
+        font-family: var(--font-family-1);
+
+        &::placeholder {
+          font-size: 1rem;
+          padding-left: 10px;
+        }
+      }
+    }
+
+    .linkIns {
+      cursor: pointer;
+      text-decoration: underline;
+      color: var(--primary);
+    }
+  }
+}

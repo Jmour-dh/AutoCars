@@ -1,0 +1,63 @@
+@use "../../assets/styles/mixins" as mixin;
+
+.Linkactive {
+  color: var(--white);
+  font-weight: 700;
+  position: relative;
+}
+
+.Linkactive:after {
+  bottom: 0;
+  content: "";
+  display: block;
+  height: 2px;
+  left: 50%;
+  position: absolute;
+  background: var(--white);
+  width: 100%;
+}
+
+.btn {
+  padding: 5px 15px;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: 0.2s opacity;
+  &:hover {
+    opacity: 0.6;
+  }
+}
+
+.btn-primary {
+  background-color: var(--primary);
+  color: white;
+  border: 2px solid var(--primary);
+  opacity: 0.8;
+}
+
+.form-error {
+  margin: 0;
+  color: var(--red-1);
+  font-weight: 500;
+  font-size: 1rem;
+}
+
+.card {
+  border-radius: 20px;
+  background-color: var(--background-color);
+}
+
+.calc {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  z-index: 2;
+}
+
+.ctc {
+  display: flex;
+  @include mixin.xs {
+    flex-direction: column-reverse;
+  }
+}

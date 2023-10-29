@@ -1,0 +1,65 @@
+@use "../../assets/styles/mixins" as mixin;
+
+.header {
+  background-color: var(--primary);
+  height: 100px;
+  width: 100%;
+  cursor: pointer;
+
+  @include mixin.xs {
+    background-color: var(--background-color);
+    flex-direction: row;
+    justify-content: space-between;
+    height: 50px;
+  }
+
+  a {
+    margin: 0 1rem;
+    color: var(--white);
+    text-decoration: none;
+    position: relative;
+
+    &:hover {
+      &:after {
+        width: 100%;
+        left: 0;
+      }
+    }
+
+    &:after {
+      bottom: 0;
+      content: "";
+      display: block;
+      height: 2px;
+      left: 50%;
+      position: absolute;
+      background: var(--black);
+      transition: width 0.3s ease 0s, left 0.3s ease 0s;
+      width: 0;
+    }
+  }
+  .logo {
+    img {
+      width: 100px;
+    }
+  }
+
+  .headerList {
+    @include mixin.xs {
+      display: none;
+    }
+  }
+}
+
+.headerXs {
+  display: none !important;
+  cursor: pointer;
+  transition: opacity 0.2s;
+  &:hover {
+    opacity: 0.8;
+  }
+  @include mixin.xs {
+    display: block !important;
+    margin: 10px;
+  }
+}
