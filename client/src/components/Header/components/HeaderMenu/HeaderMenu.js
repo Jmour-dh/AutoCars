@@ -1,71 +1,113 @@
 import React, { useContext } from "react";
 import styles from "./HeaderMenu.module.scss";
-import { NavLink, useLocation } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import { AuthContext } from "../../../context/AuthContext";
-import logoIcon from "../../../../assets/icons/Royal_Palace_Logo.jpg";
 import { AiOutlineUser } from "react-icons/ai";
 
 function HeaderMenu() {
   const { user, signout } = useContext(AuthContext);
-  const location = useLocation();
+
   return (
     <>
       {user ? (
-        user.admin === true ? (
-          
-          <ul
-            className={`${styles.MenuContainer} d-flex flex-column align-items-center card p-20`}
-          >
-            <li>
-              <img className={styles.ico} src={logoIcon} alt="logo" />
-            </li>
-            <li className="mr-20">
-              <NavLink
-                className={({ isActive }) => (isActive ? "Linkactive" : "")}
-                to="/admin"
-              >
-                Profil admin
-              </NavLink>
-            </li>
-            <li className="mr-20">
-              <NavLink onClick={() => signout()}>Déconnexion</NavLink>
-            </li>
-          </ul>
-        ) : (
-          <ul
-            className={`${styles.MenuContainer} d-flex flex-column align-items-center card p-20`}
-          >
-            <li>
-              <img className={styles.ico} src={logoIcon} alt="logo" />
-            </li>
-            <li className="mr-20">
-              <NavLink
-                className={({ isActive }) => (isActive ? "Linkactive" : "")}
-                to="/profile"
-              >
-                Profil
-              </NavLink>
-            </li>
-            <li className="mr-20">
-              <NavLink
-                className={({ isActive }) => (isActive ? "Linkactive" : "")}
-                to="/reserver"
-              >
-                Réserver
-              </NavLink>
-            </li>
-            <li className="mr-20">
-              <NavLink onClick={() => signout()}>Déconnexion</NavLink>
-            </li>
-          </ul>
-        )
+        <>
+          {user.role_id === 2 && (
+            <ul
+              className={`${styles.MenuContainer} d-flex flex-column align-items-center card p-20`}
+            >
+              <li className="mr-20">
+                <NavLink
+                  className={({ isActive }) => (isActive ? "Linkactive" : "")}
+                  to="/admin"
+                >
+                  Profil admin
+                </NavLink>
+              </li>
+              <li className="mr-20">
+                <NavLink onClick={() => signout()}>Déconnexion</NavLink>
+              </li>
+            </ul>
+          )}
+          {user.role_id === 3 && (
+            <ul
+             className={`${styles.MenuContainer} d-flex flex-column align-items-center card p-20`}
+            >
+              <li className="mr-20">
+                <NavLink
+                  className={({ isActive }) => (isActive ? "Linkactive" : "")}
+                  to="/"
+                >
+                  Accueil
+                </NavLink>
+              </li>
+              <li className="mr-20">
+                <NavLink
+                  className={({ isActive }) => (isActive ? "Linkactive" : "")}
+                  to="/profilPersonnel"
+                >
+                  Profil personnel
+                </NavLink>
+              </li>
+              <li className="mr-20">
+                <NavLink onClick={() => signout()}>Déconnexion</NavLink>
+              </li>
+            </ul>
+          )}
+          {user.role_id !== 2 && user.role_id !== 3 && (
+            <ul
+             className={`${styles.MenuContainer} d-flex flex-column align-items-center card p-20`}
+            >
+              <li className="mr-20">
+                <NavLink
+                  className={({ isActive }) => (isActive ? "Linkactive" : "")}
+                  to="/"
+                >
+                  Accueil
+                </NavLink>
+              </li>
+              <li className="mr-20">
+                <NavLink
+                  className={({ isActive }) => (isActive ? "Linkactive" : "")}
+                  to="/occasion"
+                >
+                  l'Occasion
+                </NavLink>
+              </li>
+              <li className="mr-20">
+                <NavLink
+                  className={({ isActive }) => (isActive ? "Linkactive" : "")}
+                  to="/accessoire"
+                >
+                  Accessoires
+                </NavLink>
+              </li>
+              <li className="mr-20">
+                <NavLink
+                  className={({ isActive }) => (isActive ? "Linkactive" : "")}
+                  to="/about"
+                >
+                  À propos
+                </NavLink>
+              </li>
+              <li className="mr-20">
+                <NavLink
+                  className={({ isActive }) => (isActive ? "Linkactive" : "")}
+                  to="/profile"
+                >
+                  Profil
+                </NavLink>
+              </li>
+
+              <li className="mr-20">
+                <NavLink onClick={() => signout()}>Déconnexion</NavLink>
+              </li>
+            </ul>
+          )}
+        </>
       ) : (
         <ul
-          className={`${styles.MenuContainer} d-flex flex-column align-items-center card p-20`}
+         className={`${styles.MenuContainer} d-flex flex-column align-items-center card p-20`}
         >
-          <li>
-            <img className={styles.ico} src={logoIcon} alt="logo" />
-          </li>
           <li className="mr-20">
             <NavLink
               className={({ isActive }) => (isActive ? "Linkactive" : "")}
@@ -77,45 +119,35 @@ function HeaderMenu() {
           <li className="mr-20">
             <NavLink
               className={({ isActive }) => (isActive ? "Linkactive" : "")}
-              to="/resto"
+              to="/occasion"
             >
-              Restaurants & Bars
+              l'Occasion
             </NavLink>
           </li>
           <li className="mr-20">
             <NavLink
               className={({ isActive }) => (isActive ? "Linkactive" : "")}
-              to="/gallery"
+              to="/accessoire"
             >
-              Gallery
+              Accessoires
             </NavLink>
           </li>
           <li className="mr-20">
             <NavLink
               className={({ isActive }) => (isActive ? "Linkactive" : "")}
-              to="/localisation"
+              to="/about"
             >
-              Location & Details
+              À propos
             </NavLink>
           </li>
+
           <li className="mr-20">
-            <NavLink
-              className={
-                location.pathname === "/signin" ||
-                location.pathname === "/signup"
-                  ? "Linkactive"
-                  : ""
-              }
-              to="/signin"
-            >
+            <NavLink to="/signin">
               <AiOutlineUser style={{ marginBottom: "2px" }} />
             </NavLink>
           </li>
-          
         </ul>
-        
       )}
-      
     </>
   );
 }

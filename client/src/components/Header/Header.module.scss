@@ -7,10 +7,10 @@
   cursor: pointer;
 
   @include mixin.xs {
-    background-color: var(--background-color);
+    background-color: var(--primary);
     flex-direction: row;
     justify-content: space-between;
-    height: 50px;
+    height: 100px;
   }
 
   a {
@@ -61,5 +61,8 @@
   @include mixin.xs {
     display: block !important;
     margin: 10px;
+    color: white;
+    height: 25px;
+    width: 25px;
   }
 }

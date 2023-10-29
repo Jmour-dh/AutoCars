@@ -43,6 +43,14 @@ function Header() {
                 <li className="mr-10">
                   <NavLink
                     className={({ isActive }) => (isActive ? "Linkactive" : "")}
+                    to="/"
+                  >
+                    Accueil
+                  </NavLink>
+                </li>
+                <li className="mr-10">
+                  <NavLink
+                    className={({ isActive }) => (isActive ? "Linkactive" : "")}
                     to="/profilPersonnel"
                   >
                     Profil personnel
@@ -55,6 +63,38 @@ function Header() {
             )}
             {user.role_id !== 2 && user.role_id !== 3 && (
               <ul className={`${styles.headerList} d-flex p-5`}>
+                <li className="mr-10">
+                  <NavLink
+                    className={({ isActive }) => (isActive ? "Linkactive" : "")}
+                    to="/"
+                  >
+                    Accueil
+                  </NavLink>
+                </li>
+                <li className="ml-10 mr-10">
+                  <NavLink
+                    className={({ isActive }) => (isActive ? "Linkactive" : "")}
+                    to="/occasion"
+                  >
+                    l'Occasion
+                  </NavLink>
+                </li>
+                <li className="ml-10 mr-10">
+                  <NavLink
+                    className={({ isActive }) => (isActive ? "Linkactive" : "")}
+                    to="/accessoire"
+                  >
+                    Accessoires
+                  </NavLink>
+                </li>
+                <li className="ml-10 mr-10">
+                  <NavLink
+                    className={({ isActive }) => (isActive ? "Linkactive" : "")}
+                    to="/about"
+                  >
+                    À propos
+                  </NavLink>
+                </li>
                 <li className="mr-10">
                   <NavLink
                     className={({ isActive }) => (isActive ? "Linkactive" : "")}
