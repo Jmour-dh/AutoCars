@@ -8,7 +8,7 @@ import HeaderMenu from "./components/HeaderMenu/HeaderMenu";
 import logo from "../../assets/images/Logo.png";
 
 function Header() {
-  const { user, signout } = useContext(AuthContext);
+  const { user} = useContext(AuthContext);
   const [showMenu, setShowMenu] = useState(false);
 
   return (
@@ -33,9 +33,6 @@ function Header() {
                     Profil admin
                   </NavLink>
                 </li>
-                <li className="ml-10">
-                  <NavLink onClick={() => signout()}>Déconnexion</NavLink>
-                </li>
               </ul>
             )}
             {user.role_id === 3 && (
@@ -55,9 +52,6 @@ function Header() {
                   >
                     Profil personnel
                   </NavLink>
-                </li>
-                <li className="ml-10">
-                  <NavLink onClick={() => signout()}>Déconnexion</NavLink>
                 </li>
               </ul>
             )}
@@ -98,14 +92,10 @@ function Header() {
                 <li className="mr-10">
                   <NavLink
                     className={({ isActive }) => (isActive ? "Linkactive" : "")}
-                    to="/profile"
+                    to="/profile/details/tabBord"
                   >
                     Profil
                   </NavLink>
-                </li>
-
-                <li className="ml-10">
-                  <NavLink onClick={() => signout()}>Déconnexion</NavLink>
                 </li>
               </ul>
             )}

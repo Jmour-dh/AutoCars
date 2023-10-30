@@ -27,10 +27,35 @@
   }
 }
 
+.btn1 {
+  padding: 5px 10px;
+  margin: 5px;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: 0.2s opacity;
+  &:hover {
+    opacity: 0.6;
+  }
+}
+
 .btn-primary {
   background-color: var(--primary);
   color: white;
   border: 2px solid var(--primary);
+  opacity: 0.8;
+}
+
+.btn-secondary {
+  background-color: var(--blue);
+  color: white;
+  border: 2px solid var(--blue);
+  opacity: 0.8;
+}
+
+.btn-danger {
+  background-color: var(--red-1);
+  color: white;
+  border: 2px solid var(--red-1);
   opacity: 0.8;
 }
 

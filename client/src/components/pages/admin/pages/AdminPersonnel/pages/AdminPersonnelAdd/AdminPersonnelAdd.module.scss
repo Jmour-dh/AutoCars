@@ -1,0 +1,23 @@
+form {
+  padding: 10px;
+  width: 400px;
+  border: 1px solid var(--primary);
+  border-radius: 5px;
+  label {
+    font-family: var(--font-family-1);
+  }
+
+  input {
+    border-radius: 20px;
+    height: 3rem;
+    font-family: var(--font-family-1);
+    border: 1px solid var(--black);
+
+    
+
+    &::placeholder {
+      font-size: 1rem;
+      padding-left: 10px;
+    }
+  }
+}

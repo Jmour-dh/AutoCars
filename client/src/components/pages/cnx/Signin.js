@@ -55,7 +55,7 @@ function Signin() {
         ) : user.role_id === 3 ? (
           <Navigate to="/profilePersonnel" />
         ) : (
-          <Navigate to="/profile" />
+          <Navigate to="/profile/details/tabBord" />
         )
       ) : (
         <div className={styles.cnx}>

@@ -1,68 +1,19 @@
-@use '../../../assets/styles/mixins' as mixins;
+@use "../../../assets/styles/mixins" as mixins;
 
-.Profile {
-    margin: 0 20px;
-height: 85vh;
-    h1 {
-        font-family: Objectivity, Helvetica, sans-serif;
-        font-size: 2.8rem;
-        font-weight: 500;
-        color: #8c7343;
-        margin-bottom: 0.5em;
-        text-align: center;
-    }
+.centeredContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center; // Centrer horizontalement
+  justify-content: center; // Centrer verticalement
+  width: 100%;
+}
 
-    .ProfileContainer {
-        border: 1px solid #8c7343;
-        display: grid;
-        border-radius: 10px;
-        grid-template-columns: 40% 60%;
-        grid-template-rows: 1fr;
-        grid-column-gap: 0px;
-        grid-row-gap: 0px;
-        width: 80%;
-        margin: auto;
-        height: 70vh;
-        margin-bottom: 25px;
-        @include mixins.xs {
-            display: flex;
-            flex-direction: column;
-          }
-
-        .Pdp {
-            width: 100%;
-            background: #8c7343;
-            border-radius: 10px 0 0 10px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            @include mixins.xs {
-                border-radius: 10px 10px 0 0;
-
-              }
-
-            img {
-                height: 140px;
-            }
-        }
-
-        .descriptionProfile {
-            text-align: center;
-            margin: auto;
-
-            .liPrecision {
-                font-family: Helvetica, sans-serif;
-                font-size: 2rem;
-                letter-spacing: 1px;
-                color: #474747;
-
-                .liuser {
-                    font-family: Helvetica, sans-serif;
-                    font-size: 1.4rem;
-                    letter-spacing: 1px;
-
-                }
-            }
-        }
-    }
+.container {
+  height: 70vh;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  @include mixins.xs {
+    flex-direction: column;
+  }
 }

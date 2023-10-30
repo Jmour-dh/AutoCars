@@ -92,7 +92,7 @@ function HeaderMenu() {
               <li className="mr-20">
                 <NavLink
                   className={({ isActive }) => (isActive ? "Linkactive" : "")}
-                  to="/profile"
+                  to="/profile/details/tabBord"
                 >
                   Profil
                 </NavLink>
