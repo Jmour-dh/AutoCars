@@ -60,7 +60,7 @@ function AdminPersonnelList() {
                   <td>{user.email}</td>
                   <td>{user.tel}</td>
                   <td className={styles.action}>
-                    <NavLink to="/">
+                    <NavLink  to={`../editPersonnel/${user.user_id}`}>
                       <button className="btn1 btn-secondary ">Editer</button>
                     </NavLink>
 

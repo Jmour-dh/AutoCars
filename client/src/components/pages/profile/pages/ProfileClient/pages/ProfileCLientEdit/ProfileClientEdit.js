@@ -51,7 +51,7 @@ function ProfileClientEdit() {
   });
 
   useEffect(() => {
-    const fetchJoueurById = async () => {
+    const fetchClientById = async () => {
       try {
         const response = await axios.get(`/api/users/client/${userId}`);
         const clients = response.data;
@@ -75,7 +75,7 @@ function ProfileClientEdit() {
       }
     };
   
-    fetchJoueurById();
+    fetchClientById();
   }, [userId, setValue]);
   
   

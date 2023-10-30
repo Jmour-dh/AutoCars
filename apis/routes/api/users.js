@@ -119,15 +119,45 @@ router.get("/personnel", async (req, res) => {
 
 router.get("/personnel/:user_id", async (req, res) => {
   try {
-    // Exécutez une requête SQL pour sélectionner name, lname, et email de la table "users"
-    const result = await pool.query("SELECT * FROM users");
-    console.log(result);
-    const users = result.rows;
+    const userId = req.params.user_id;
 
-    // Répondez avec les données des utilisateurs au format JSON
-    res.json(users);
+    // Exécutez une requête SQL pour sélectionner les données de l'utilisateur par ID
+    const result = await pool.query("SELECT * FROM users WHERE user_id = $1", [
+      userId,
+    ]);
+
+    // Si l'utilisateur est trouvé, renvoyez les données au format JSON
+    if (result.rows.length > 0) {
+      res.json(result.rows[0]);
+    } else {
+      res.status(404).json({ error: "Utilisateur non trouvé" });
+    }
   } catch (err) {
-    console.error("Erreur lors de la récupération des utilisateurs :", err);
+    console.error(
+      "Erreur lors de la récupération de l'utilisateur par ID :",
+      err
+    );
+    res.status(500).json({ error: "Erreur serveur" });
+  }
+});
+
+router.put("/personnel/:user_id", async (req, res) => {
+  try {
+    const userId = req.params.user_id;
+    const { nom, prenom, adresse, email, tel } = req.body;
+
+    // Exécutez une requête SQL pour mettre à jour les données de l'utilisateur
+    const result = await pool.query(
+      "UPDATE users SET nom=$1, prenom=$2, adresse=$3, email=$4, tel=$5 WHERE user_id=$6 RETURNING *",
+      [nom, prenom, adresse, email, tel, userId]
+    );
+
+    console.log(result);
+
+    // Répondez avec les données mises à jour de l'utilisateur au format JSON
+    res.json(result.rows[0]);
+  } catch (err) {
+    console.error("Erreur lors de la mise à jour de l'utilisateur :", err);
     res.status(500).json({ error: "Erreur serveur" });
   }
 });
