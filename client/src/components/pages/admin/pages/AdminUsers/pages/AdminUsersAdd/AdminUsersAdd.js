@@ -1,15 +1,13 @@
-import  "./AdminPersonnelEdit.scss";
+import "./AdminUsersAdd.module.scss"
+import React from 'react'
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { useNavigate, useParams } from "react-router-dom";
-import axios from "axios";
-import React, { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import { createUser } from "../../../../../../../apis/users";
 
-function AdminPersonnelEdit() {
+function AdminUsersAdd() {
   const navigate = useNavigate();
-  const { userId } = useParams();
-
   const validationSchema = yup.object({
     nom: yup
       .string()
@@ -25,6 +23,17 @@ function AdminPersonnelEdit() {
       .email("L'email n'est pas valide"),
     adresse: yup.string().required("Il faut préciser votre adresse"),
     tel: yup.string().required("Il faut préciser votre numéro de téléphone"),
+    password: yup
+      .string()
+      .required("Il faut préciser votre mot de passe")
+      .min(6, "Mot de passe trop court"),
+    confirmPassword: yup
+      .string()
+      .required("Vous devez confirmer votre mot de passe")
+      .oneOf(
+        [yup.ref("password"), ""],
+        "Les mots de passe ne correspondent pas"
+      ),
   });
 
   const initialValues = {
@@ -33,12 +42,13 @@ function AdminPersonnelEdit() {
     adresse: "",
     email: "",
     tel: "",
+    password: "",
+    confirmPassword: "",
   };
 
   const {
     handleSubmit,
     register,
-    setValue,
     formState: { errors, isSubmitting },
     setError,
     clearErrors,
@@ -46,35 +56,13 @@ function AdminPersonnelEdit() {
     initialValues,
     resolver: yupResolver(validationSchema),
   });
-
-  useEffect(() => {
-    const fetchPersonnelById = async () => {
-      try {
-        const response = await axios.get(`/api/users/personnel/${userId}`);
-        const personnel = response.data;
-        // Pré-remplir le formulaire avec les détails du personnel
-        Object.keys(personnel).forEach((key) => {
-          setValue(key, personnel[key]);
-        });
-      } catch (error) {
-        console.error(
-          "Erreur lors de la récupération du personnel par ID :",
-          error
-        );
-      }
-    };
-
-    fetchPersonnelById();
-  }, [userId, setValue]);
-
-  const submit = handleSubmit(async (personnel) => {
+  const submit = handleSubmit(async (user) => {
     try {
       clearErrors();
-      // Envoyez la mise à jour au backend
-      await axios.put(`/api/users/personnel/${userId}`, personnel);
-      navigate("/admin/personnels/list");
-    } catch (error) {
-      setError("generic", { type: "generic", message: error.message });
+      await createUser(user);
+      navigate("/admin/users/list");
+    } catch (message) {
+      setError("generic", { type: "generic", message });
     }
   });
   return (
@@ -141,16 +129,45 @@ function AdminPersonnelEdit() {
         />
         {errors.tel && <p className="form-error">{errors.tel.message}</p>}
       </div>
+      <div className="mb-10 d-flex flex-column">
+        <label htmlFor="password" className="mb-10">
+          Mot de passe :
+        </label>
+        <input
+          type="password"
+          name="password"
+          placeholder="Entrez votre mot de passe..."
+          {...register("password")}
+        />
+        {errors.password && (
+          <p className="form-error">{errors.password.message}</p>
+        )}
+      </div>
+      <div className="mb-10 d-flex flex-column">
+        <label htmlFor="name" className="mb-10">
+          Vérification de mot de passe :
+        </label>
+        <input
+          id="confirmPassword"
+          type="password"
+          name="confirmPassword"
+          placeholder="Entrez votre mot de passe..."
+          {...register("confirmPassword")}
+        />
+        {errors.confirmPassword && (
+          <p className="form-error">{errors.confirmPassword.message}</p>
+        )}
+      </div>
       {errors.generic && (
         <div className="mb-10">
           <p className="form-error">{errors.generic.message}</p>
         </div>
       )}
       <button disabled={isSubmitting} className="btn btn-primary  m-10">
-        Enregister les modifications
+        Enregister
       </button>
     </form>
-  );
+  )
 }
 
-export default AdminPersonnelEdit;
+export default AdminUsersAdd

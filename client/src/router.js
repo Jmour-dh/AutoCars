@@ -37,14 +37,7 @@ const ProfilePersonnel = lazy(() =>
   import("./components/pages/profilePersonnel/profilePersonnel")
 );
 const Admin = lazy(() => import("./components/pages/admin/Admin"));
-const AdminReservations = lazy(() =>
-  import("./components/pages/admin/pages/AdminReservations/AdminReservations")
-);
-const AdminReservationsList = lazy(() =>
-  import(
-    "./components/pages/admin/pages/AdminReservations/pages/AdminReservationList/AdminReservationList"
-  )
-);
+
 
 /* Admin Personnel*/
 const AdminPersonnel = lazy(() => import("./components/pages/admin/pages/AdminPersonnel/AdminPersonnel"))
@@ -56,9 +49,15 @@ const AdminPersonnelEdit = lazy(() => import("./components/pages/admin/pages/Adm
 const AdminUsers = lazy(() =>
   import("./components/pages/admin/pages/AdminUsers/AdminUsers")
 );
+const AdminUsersList = lazy(() =>import("./components/pages/admin/pages/AdminUsers/pages/AdminUsersList/AdminUsersList")) 
+const AdminUsersAdd = lazy(() => import("./components/pages/admin/pages/AdminUsers/pages/AdminUsersAdd/AdminUsersAdd"))
+const AdminUsersEdit = lazy(() => import("./components/pages/admin/pages/AdminUsers/pages/AdminUsersEdit/AdminUsersEdit"))
+
+/*Admin Contact */
 const AdminContacts = lazy(() =>
   import("./components/pages/admin/pages/AdminContacts/AdminContacts")
 );
+
 
 export const router = createBrowserRouter([
   {
@@ -134,16 +133,6 @@ export const router = createBrowserRouter([
         ),
         children: [
           {
-            path: "reservations",
-            element: <AdminReservations />,
-            children: [
-              {
-                path: "list",
-                element: <AdminReservationsList />,
-              },
-            ],
-          },
-          {
             path: "personnels",
             element: <AdminPersonnel />,
             children: [
@@ -168,6 +157,24 @@ export const router = createBrowserRouter([
           {
             path: "users",
             element: <AdminUsers />,
+            children: [
+              {
+                path: "list",
+                element: <AdminUsersList />,
+              },
+              {
+                path: "new",
+                element: <AdminUsersAdd />,
+              },
+              {
+                path: "editUser/:userId",
+                element: <AdminUsersEdit />,
+              },
+              {
+                index: true,
+                loader: async () => redirect('/admin/users/list'),
+              },
+            ],
           },
           {
             path: "contacts",

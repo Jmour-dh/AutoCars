@@ -1,5 +1,5 @@
 import React from "react";
-import styles from "./AdminPersonnelAdd.module.scss";
+import  "./AdminPersonnelAdd.module.scss";
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";

@@ -5,11 +5,11 @@ const router = require("express").Router();
 /*requette Client */
 
 router.post("/client", async (req, res) => {
-  let { email, password } = req.body;
+  let {nom, prenom,adresse, email, tel, password } = req.body;
   password = await bcrypt.hash(password, 8);
   pool.query(
-    "INSERT INTO users ( email, password, role_id) VALUES ($1, $2, 1) RETURNING *",
-    [email, password],
+    "INSERT INTO users ( nom, prenom,adresse,email, tel, password, role_id) VALUES ($1, $2,$3,$4,$5,$6, 1) RETURNING *",
+    [nom, prenom, adresse, email, tel, password],
     (err, results) => {
       if (err) {
         console.log(err);
@@ -25,17 +25,41 @@ router.post("/client", async (req, res) => {
   );
 });
 
+router.get("/client", async (req, res) => {
+  try {
+    // Exécutez une requête SQL pour sélectionner tous les clients avec role_id = 1
+    const result = await pool.query(
+      "SELECT * FROM users WHERE role_id = 1"
+    );
+
+    // Répondez avec les données des clients au format JSON
+    res.json(result.rows);
+  } catch (err) {
+    console.error("Erreur lors de la récupération des clients :", err);
+    res.status(500).json({ error: "Erreur serveur" });
+  }
+});
+
 router.get("/client/:user_id", async (req, res) => {
   try {
-    // Exécutez une requête SQL pour sélectionner name, lname, et email de la table "users"
-    const result = await pool.query("SELECT * FROM users");
-    console.log(result);
-    const users = result.rows;
+    const userId = req.params.user_id;
 
-    // Répondez avec les données des utilisateurs au format JSON
-    res.json(users);
+    // Exécutez une requête SQL pour sélectionner les données de l'utilisateur par ID
+    const result = await pool.query("SELECT * FROM users WHERE user_id = $1", [
+      userId,
+    ]);
+
+    // Si l'utilisateur est trouvé, renvoyez les données au format JSON
+    if (result.rows.length > 0) {
+      res.json(result.rows[0]);
+    } else {
+      res.status(404).json({ error: "Utilisateur non trouvé" });
+    }
   } catch (err) {
-    console.error("Erreur lors de la récupération des utilisateurs :", err);
+    console.error(
+      "Erreur lors de la récupération de l'utilisateur par ID :",
+      err
+    );
     res.status(500).json({ error: "Erreur serveur" });
   }
 });
@@ -77,6 +101,29 @@ router.put("/client/:user_id", async (req, res) => {
       res.json(results.rows[0]);
     }
   );
+});
+
+router.delete("/client/:userId", async (req, res) => {
+  const userId = req.params.userId;
+  try {
+    // Vérifiez si l'utilisateur existe
+    const userExists = await pool.query(
+      "SELECT * FROM users WHERE user_id = $1",
+      [userId]
+    );
+    if (userExists.rows.length === 0) {
+      return res.status(404).json({ error: "Utilisateur non trouvé" });
+    }
+    // Supprimez l'utilisateur
+    await pool.query("DELETE FROM users WHERE user_id = $1", [userId]);
+
+    res.json({ message: "Utilisateur supprimé avec succès" });
+  } catch (error) {
+    console.error("Erreur lors de la suppression de l'utilisateur :", error);
+    res.status(500).json({
+      error: "Erreur serveur lors de la suppression de l'utilisateur",
+    });
+  }
 });
 
 /*requette Personnel */
@@ -151,9 +198,6 @@ router.put("/personnel/:user_id", async (req, res) => {
       "UPDATE users SET nom=$1, prenom=$2, adresse=$3, email=$4, tel=$5 WHERE user_id=$6 RETURNING *",
       [nom, prenom, adresse, email, tel, userId]
     );
-
-    console.log(result);
-
     // Répondez avec les données mises à jour de l'utilisateur au format JSON
     res.json(result.rows[0]);
   } catch (err) {
@@ -164,18 +208,15 @@ router.put("/personnel/:user_id", async (req, res) => {
 
 router.delete("/personnel/:userId", async (req, res) => {
   const userId = req.params.userId;
-
   try {
     // Vérifiez si l'utilisateur existe
     const userExists = await pool.query(
       "SELECT * FROM users WHERE user_id = $1",
       [userId]
     );
-
     if (userExists.rows.length === 0) {
       return res.status(404).json({ error: "Utilisateur non trouvé" });
     }
-
     // Supprimez l'utilisateur
     await pool.query("DELETE FROM users WHERE user_id = $1", [userId]);
 

@@ -1,30 +1,22 @@
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import React, { Suspense } from "react";
+import { Outlet, useLocation } from "react-router-dom";
+import AdminUsersNav from "./components/AdminUsersNav/AdminUsersNav";
 
 function AdminUsers() {
-  const [users, setUsers] = useState([]);
-  useEffect(() => {
-    // Effectue une requête GET à l'API pour récupérer la liste des contacts
-    axios.get('/api/users')
-      .then((response) => {
-        setUsers(response.data);
-      })
-      .catch((error) => {
-        console.error('Erreur lors de la récupération des users :', error);
-      });
-  }, []);
+  const { key } = useLocation();
   return (
-    <div>
-    <h1>Liste des utilisateurs</h1>
-    <ol>
-      {users.map((user) => (
-        <li key={user.id}>
-          Nom: {user.name} {user.lname}, Email: {user.email}, 
-        </li>
-      ))}
-    </ol>
-  </div>
-  )
+    <div className="d-flex flex-column flex-fill">
+      <h4 className="mb-20">Gestion des clients</h4>
+      <div className="flex-fill d-flex flex-column">
+        <AdminUsersNav/>
+        <div className="flex-fill d-flex flex-column">
+          <Suspense>
+            <Outlet key={key} />
+          </Suspense>
+        </div>
+      </div>
+    </div>
+  );
 }
 
-export default AdminUsers
+export default AdminUsers;

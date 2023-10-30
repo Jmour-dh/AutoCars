@@ -10,12 +10,6 @@ function AdminNav() {
     <ul className={`${styles.list} d-flex flex-column`}>
       <NavLink
         className={({ isActive }) => (isActive ? styles.lActive : "")}
-        to="reservations"
-      >
-        Réservations
-      </NavLink>
-      <NavLink
-        className={({ isActive }) => (isActive ? styles.lActive : "")}
         to="personnels"
       >
         Personnels

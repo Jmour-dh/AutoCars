@@ -1,4 +1,4 @@
-import  "./AdminPersonnelEdit.scss";
+import "./AdminUsersEdit.scss";
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -6,7 +6,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 import React, { useEffect } from "react";
 
-function AdminPersonnelEdit() {
+function AdminUsersEdit() {
   const navigate = useNavigate();
   const { userId } = useParams();
 
@@ -48,31 +48,31 @@ function AdminPersonnelEdit() {
   });
 
   useEffect(() => {
-    const fetchPersonnelById = async () => {
+    const fetchUserById = async () => {
       try {
-        const response = await axios.get(`/api/users/personnel/${userId}`);
-        const personnel = response.data;
-        // Pré-remplir le formulaire avec les détails du personnel
-        Object.keys(personnel).forEach((key) => {
-          setValue(key, personnel[key]);
+        const response = await axios.get(`/api/users/client/${userId}`);
+        const user = response.data;
+        // Pré-remplir le formulaire avec les détails du user
+        Object.keys(user).forEach((key) => {
+          setValue(key, user[key]);
         });
       } catch (error) {
         console.error(
-          "Erreur lors de la récupération du personnel par ID :",
+          "Erreur lors de la récupération du user par ID :",
           error
         );
       }
     };
 
-    fetchPersonnelById();
+    fetchUserById();
   }, [userId, setValue]);
 
-  const submit = handleSubmit(async (personnel) => {
+  const submit = handleSubmit(async (user) => {
     try {
       clearErrors();
       // Envoyez la mise à jour au backend
-      await axios.put(`/api/users/personnel/${userId}`, personnel);
-      navigate("/admin/personnels/list");
+      await axios.put(`/api/users/client/${userId}`, user);
+      navigate("/admin/users/list");
     } catch (error) {
       setError("generic", { type: "generic", message: error.message });
     }
@@ -150,7 +150,7 @@ function AdminPersonnelEdit() {
         Enregister les modifications
       </button>
     </form>
-  );
+  )
 }
 
-export default AdminPersonnelEdit;
+export default AdminUsersEdit
