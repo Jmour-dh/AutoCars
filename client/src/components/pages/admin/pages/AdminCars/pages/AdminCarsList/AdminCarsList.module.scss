@@ -1,0 +1,56 @@
+// UserTable.scss
+
+// Variables
+$primary-color: #3498db;
+$table-border: 1px solid #ddd;
+$table-hover-color: #f9f9f9;
+
+// Styles
+.userTable {
+  margin-top: 20px;
+
+  h2 {
+    color: $primary-color;
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+    border: $table-border;
+
+    th,
+    td {
+      padding: 12px;
+      border: $table-border;
+      text-align: center;
+    }
+
+    th {
+      background-color: $primary-color;
+      color: white;
+    }
+
+    tr:nth-child(even) {
+      background-color: #f2f2f2;
+    }
+
+    tr:hover {
+      background-color: $table-hover-color;
+    }
+
+    .photo {
+      width: 120px;
+      img {
+        width: 100px;
+      }
+    }
+
+    .logo {
+      width: 100px;
+      img {
+        width: 50px;
+      }
+    }
+  }
+}

@@ -5,7 +5,7 @@ import { useContext } from "react";
 import { AuthContext } from "../../../../context";
 
 function AdminNav() {
-  const {  signout } = useContext(AuthContext);
+  const { signout } = useContext(AuthContext);
   return (
     <ul className={`${styles.list} d-flex flex-column`}>
       <NavLink
@@ -21,7 +21,13 @@ function AdminNav() {
         Utilisateurs
       </NavLink>
       <NavLink
-        className={({ isActive }) => (isActive ? styles.lActive : '')}
+        className={({ isActive }) => (isActive ? styles.lActive : "")}
+        to="cars"
+      >
+        Voitures
+      </NavLink>
+      <NavLink
+        className={({ isActive }) => (isActive ? styles.lActive : "")}
         to="contacts"
       >
         Contacts

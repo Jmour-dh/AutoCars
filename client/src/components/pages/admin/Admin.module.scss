@@ -1,7 +1,7 @@
 @use '../../../assets/styles/mixins' as mixins;
 
 .container {
-  height: 100vh;
+
   @include mixins.xs {
     flex-direction: column;
   }

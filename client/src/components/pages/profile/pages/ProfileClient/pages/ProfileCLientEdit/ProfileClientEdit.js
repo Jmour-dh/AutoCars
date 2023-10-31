@@ -51,35 +51,21 @@ function ProfileClientEdit() {
   });
 
   useEffect(() => {
-    const fetchClientById = async () => {
+    const fetchUserById = async () => {
       try {
         const response = await axios.get(`/api/users/client/${userId}`);
-        const clients = response.data;
-        console.log("Données de l'API :", clients);
-  
-        // Trouver l'utilisateur spécifique dans le tableau
-        const client = clients.find((user) => user.user_id === userId);
-  
-        if (client) {
-          // Pré-remplir le formulaire avec les détails de l'utilisateur
-          Object.keys(client).forEach((key) => {
-            setValue(key, client[key]);
-          });
-        }
-  
+        const user = response.data;
+        // Pré-remplir le formulaire avec les détails du user
+        Object.keys(user).forEach((key) => {
+          setValue(key, user[key]);
+        });
       } catch (error) {
-        console.error(
-          "Erreur lors de la récupération du client par ID :",
-          error
-        );
+        console.error("Erreur lors de la récupération du user par ID :", error);
       }
     };
-  
-    fetchClientById();
+
+    fetchUserById();
   }, [userId, setValue]);
-  
-  
-  
 
   const submit = handleSubmit(async (client) => {
     try {
