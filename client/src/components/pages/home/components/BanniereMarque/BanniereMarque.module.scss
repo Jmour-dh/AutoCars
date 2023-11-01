@@ -1,0 +1,33 @@
+.marques {
+  width: 100%;
+  height: 100%;
+
+  h2 {
+    font-size: 1.5rem;
+    text-align: center;
+    font-family: var(--font-family-1);
+  }
+
+  .logoMarque {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 137px;
+
+    a {
+      width: 154px;
+      height: 74px;
+      background: rgb(245, 242, 242);
+      border-radius: 10px;
+      margin: 0 20px;
+      cursor: pointer !important;
+      &:hover {
+        opacity: 0.8;
+      }
+      img {
+        width: 100%;
+        height: 44px;
+      }
+    }
+  }
+}

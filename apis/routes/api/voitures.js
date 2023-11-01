@@ -79,13 +79,13 @@ router.get("/", async (req, res) => {
 router.get("/:voitureId", async (req, res) => {
   try {
     const voitureId = req.params.voitureId;
+    console.log(req.params);
 
     // Exécutez une requête SQL pour sélectionner les données de la voiture par ID
     const result = await pool.query(
       "SELECT * FROM voiture WHERE voitureid = $1",
       [voitureId]
     );
-
     // Si la voiture est trouvé, renvoyez les données au format JSON
     if (result.rows.length > 0) {
       res.json(result.rows[0]);

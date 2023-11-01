@@ -1,0 +1,31 @@
+@use "../../../../../assets/styles/mixins" as mixin;
+
+.banInfo {
+  width: 100%;
+  height: 360px;
+  display: flex;
+  justify-content: space-around;
+  margin: 32px 16px;
+
+
+  .details {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    font-family: var(--font-family-1);
+
+    h2 {
+      font-size: 1.5rem;
+      padding-bottom: 10px;
+    }
+
+    .icon {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background-color: #eef0f1;
+      margin-right: 10px;
+    }
+  }
+
+}

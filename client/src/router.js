@@ -6,6 +6,11 @@ import { rootLoader } from "./components/loaders/rootLoader";
 import ProtectedRoute from "./components/ProtectedRoute/ProtectedRoute";
 
 const Home = lazy(() => import("./components/pages/home/Home"));
+
+const MarqueList = lazy(() =>
+  import("./components/pages/home/components/MarqueList/MarqureList")
+);
+
 const Signin = lazy(() => import("./components/pages/cnx/Signin"));
 const Signup = lazy(() => import("./components/pages/cnx/Signup"));
 const About = lazy(() => import("./components/pages/About/About"));
@@ -38,33 +43,71 @@ const ProfilePersonnel = lazy(() =>
 );
 const Admin = lazy(() => import("./components/pages/admin/Admin"));
 
-
 /* Admin Personnel*/
-const AdminPersonnel = lazy(() => import("./components/pages/admin/pages/AdminPersonnel/AdminPersonnel"))
-const AdminPersonnelList = lazy(() => import("./components/pages/admin/pages/AdminPersonnel/pages/AdminPersonnelList/AdminPersonnelList"))
-const AdminPersonnelAdd = lazy(() => import("./components/pages/admin/pages/AdminPersonnel/pages/AdminPersonnelAdd/AdminPersonnelAdd"))
-const AdminPersonnelEdit = lazy(() => import("./components/pages/admin/pages/AdminPersonnel/pages/AdminPersonnelEdit/AdminPersonnelEdit"))
+const AdminPersonnel = lazy(() =>
+  import("./components/pages/admin/pages/AdminPersonnel/AdminPersonnel")
+);
+const AdminPersonnelList = lazy(() =>
+  import(
+    "./components/pages/admin/pages/AdminPersonnel/pages/AdminPersonnelList/AdminPersonnelList"
+  )
+);
+const AdminPersonnelAdd = lazy(() =>
+  import(
+    "./components/pages/admin/pages/AdminPersonnel/pages/AdminPersonnelAdd/AdminPersonnelAdd"
+  )
+);
+const AdminPersonnelEdit = lazy(() =>
+  import(
+    "./components/pages/admin/pages/AdminPersonnel/pages/AdminPersonnelEdit/AdminPersonnelEdit"
+  )
+);
 
-/*Admin CLient*/ 
+/*Admin CLient*/
 const AdminUsers = lazy(() =>
   import("./components/pages/admin/pages/AdminUsers/AdminUsers")
 );
-const AdminUsersList = lazy(() =>import("./components/pages/admin/pages/AdminUsers/pages/AdminUsersList/AdminUsersList")) 
-const AdminUsersAdd = lazy(() => import("./components/pages/admin/pages/AdminUsers/pages/AdminUsersAdd/AdminUsersAdd"))
-const AdminUsersEdit = lazy(() => import("./components/pages/admin/pages/AdminUsers/pages/AdminUsersEdit/AdminUsersEdit"))
+const AdminUsersList = lazy(() =>
+  import(
+    "./components/pages/admin/pages/AdminUsers/pages/AdminUsersList/AdminUsersList"
+  )
+);
+const AdminUsersAdd = lazy(() =>
+  import(
+    "./components/pages/admin/pages/AdminUsers/pages/AdminUsersAdd/AdminUsersAdd"
+  )
+);
+const AdminUsersEdit = lazy(() =>
+  import(
+    "./components/pages/admin/pages/AdminUsers/pages/AdminUsersEdit/AdminUsersEdit"
+  )
+);
 
 /*Admin Cars */
 
-const AdminCars = lazy(() =>import("./components/pages/admin/pages/AdminCars/AdminCars"))
-const AdminCarsList = lazy(() => import("./components/pages/admin/pages/AdminCars/pages/AdminCarsList/AdminCarsList"))
-const AdminCarsAdd = lazy(() => import("./components/pages/admin/pages/AdminCars/pages/AdminCarsAdd/AdminCarsAdd"))
-const AdminCarsEdit = lazy(() => import("./components/pages/admin/pages/AdminCars/pages/AdminCarsEdit/AdminCarsEdit"));
+const AdminCars = lazy(() =>
+  import("./components/pages/admin/pages/AdminCars/AdminCars")
+);
+const AdminCarsList = lazy(() =>
+  import(
+    "./components/pages/admin/pages/AdminCars/pages/AdminCarsList/AdminCarsList"
+  )
+);
+const AdminCarsAdd = lazy(() =>
+  import(
+    "./components/pages/admin/pages/AdminCars/pages/AdminCarsAdd/AdminCarsAdd"
+  )
+);
+const AdminCarsEdit = lazy(() =>
+  import(
+    "./components/pages/admin/pages/AdminCars/pages/AdminCarsEdit/AdminCarsEdit"
+  )
+);
 
 /*Admin Contact */
 const AdminContacts = lazy(() =>
   import("./components/pages/admin/pages/AdminContacts/AdminContacts")
 );
-
 
 export const router = createBrowserRouter([
   {
@@ -76,6 +119,10 @@ export const router = createBrowserRouter([
       {
         index: true,
         element: <Home />,
+      },
+      {
+        path: "/marques/:marque",
+        element: <MarqueList />,
       },
       {
         path: "/about",
@@ -114,18 +161,18 @@ export const router = createBrowserRouter([
                 path: "tabBord",
                 element: <Dashboard />,
               },
-                {
-                  path: "profileC",
-                  element: <ProfileC />,
-                },
-                {
-                  path: "editClient/:userId",
-                  element: <ProfileClientEdit />,
-                },
-                {
-                  index: true,
-                  loader: async () => redirect("/profile/profileClient/tabBord"),
-                },
+              {
+                path: "profileC",
+                element: <ProfileC />,
+              },
+              {
+                path: "editClient/:userId",
+                element: <ProfileClientEdit />,
+              },
+              {
+                index: true,
+                loader: async () => redirect("/profile/profileClient/tabBord"),
+              },
             ],
           },
         ],
@@ -157,7 +204,7 @@ export const router = createBrowserRouter([
               },
               {
                 index: true,
-                loader: async () => redirect('/admin/personnels/list'),
+                loader: async () => redirect("/admin/personnels/list"),
               },
             ],
           },
@@ -179,7 +226,7 @@ export const router = createBrowserRouter([
               },
               {
                 index: true,
-                loader: async () => redirect('/admin/users/list'),
+                loader: async () => redirect("/admin/users/list"),
               },
             ],
           },
@@ -201,7 +248,7 @@ export const router = createBrowserRouter([
               },
               {
                 index: true,
-                loader: async () => redirect('/admin/cars/list'),
+                loader: async () => redirect("/admin/cars/list"),
               },
             ],
           },
