@@ -23,28 +23,30 @@ function BanniereCars() {
     <div className={styles.cars}>
       <h2>Les marques les plus populaires</h2>
       <div className={styles.carsList}>
-        {cars[0]
-          ? cars.map((car) => (
-              <Link key={car.voitureid}>
-                <img src={car.image} alt={car.titre} />
-                <div className={styles.details}>
-                  <h3>{car.titre}</h3>
-                  <div className="d-flex justify-content-center">
-                    <p className="p-10 m-5 mr-10 border-right">
-                      {car.anneecirculation}
-                    </p>
-                    <p className="p-10 m-5 mr-10 border-right">
-                      {car.kilometrage} km
-                    </p>
-                    <p className="p-10 m-5 mr-10 border-right">
-                      {car.carburant}
-                    </p>
+        <ul>
+          {cars[0]
+            ? cars.map((car) => (
+                <Link key={car.voitureid}>
+                  <img src={car.image} alt={car.titre} />
+                  <div className={styles.details}>
+                    <h3>{car.titre}</h3>
+                    <div className="d-flex justify-content-center">
+                      <p className="p-10 m-5 mr-10 border-right">
+                        {car.anneecirculation}
+                      </p>
+                      <p className="p-10 m-5 mr-10 border-right">
+                        {car.kilometrage} km
+                      </p>
+                      <p className="p-10 m-5 mr-10 border-right">
+                        {car.carburant}
+                      </p>
+                    </div>
+                    <p className="p-10 m-5 ">{car.prix} €</p>
                   </div>
-                  <p className="p-10 m-5 ">{car.prix} €</p>
-                </div>
-              </Link>
-            ))
-          : ""}
+                </Link>
+              ))
+            : ""}
+        </ul>
       </div>
     </div>
   );

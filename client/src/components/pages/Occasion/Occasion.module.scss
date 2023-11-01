@@ -1,0 +1,80 @@
+// Occasion.module.scss
+
+.Occasion {
+  display: flex;
+  // justify-content: space-between;
+  padding: 20px;
+  min-height: 100vh;
+
+  .filterSection {
+    width: 30%;
+    margin-right: 20px;
+
+    .BanniereFilter {
+      border: 1px solid #e0e0e0;
+      border-radius: 10px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      background-color: #f8f9fa;
+      padding: 20px;
+    }
+  }
+
+  .carsList {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    height: 500px;
+    padding: 32px 16px;
+
+    ul {
+      display: flex;
+      flex-wrap: wrap;
+
+      li {
+        width: calc(25% - 20px);
+        margin: 10px;
+        background: #f9f7f7;
+        -webkit-box-shadow: 0px 10px 13px -7px #000000,
+          5px 5px 15px 5px rgba(0, 0, 0, 0);
+        box-shadow: 0px 10px 13px -7px #000000,
+          5px 5px 15px 5px rgba(0, 0, 0, 0);
+        margin-bottom: 20px; // Ajout de marge entre les lignes
+        border-bottom-right-radius: 15px;
+        border-bottom-left-radius: 15px;
+
+        width: 330px;
+
+        a {
+          width: 100%;
+          height: 100%;
+          border-radius: 15px;
+
+          &:hover {
+            opacity: 0.9;
+          }
+
+          img {
+            width: 100%;
+            height: 70%;
+            border-top-right-radius: 15px;
+            border-top-left-radius: 15px;
+          }
+
+          .details {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            margin: 10px;
+
+            h3 {
+              font-size: 1.2rem;
+              text-align: center;
+            }
+          }
+        }
+      }
+    }
+  }
+}
