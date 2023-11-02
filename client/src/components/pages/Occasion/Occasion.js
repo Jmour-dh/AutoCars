@@ -40,8 +40,8 @@ function Occasion() {
       <div className={styles.carsList}>
         <ul>
           {voitures.map((voiture) => (
-            <li key={voiture.id}>
-              <Link to={`/voiture/${voiture.id}`}>
+            <li key={voiture.voitureid}>
+              <Link to={`/voitures/${voiture.voitureid}`}>
                 <img src={voiture.image} alt={voiture.titre} />
                 <div className={styles.details}>
                   <h3>{voiture.titre}</h3>
@@ -60,6 +60,7 @@ function Occasion() {
                 </div>
               </Link>
             </li>
+          
           ))}
         </ul>
       </div>

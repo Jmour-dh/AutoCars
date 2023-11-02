@@ -4,6 +4,9 @@
   color: var(--white);
   font-weight: 700;
   position: relative;
+  background-color: rgb(121, 203, 237);
+  padding: 5px 10px;
+  border-radius: 10px;
 }
 
 .Linkactive:after {
@@ -36,6 +39,14 @@
   &:hover {
     opacity: 0.6;
   }
+}
+
+
+.btn-success {
+  background-color: var(--success);
+  color: white;
+  border: 2px solid var(--success);
+  opacity: 0.8;
 }
 
 .btn-primary {

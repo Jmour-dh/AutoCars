@@ -76,14 +76,6 @@ function HeaderMenu() {
               <li className="mr-20">
                 <NavLink
                   className={({ isActive }) => (isActive ? "Linkactive" : "")}
-                  to="/accessoire"
-                >
-                  Accessoires
-                </NavLink>
-              </li>
-              <li className="mr-20">
-                <NavLink
-                  className={({ isActive }) => (isActive ? "Linkactive" : "")}
                   to="/about"
                 >
                   À propos

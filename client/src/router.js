@@ -14,10 +14,14 @@ const MarqueList = lazy(() =>
 const Signin = lazy(() => import("./components/pages/cnx/Signin"));
 const Signup = lazy(() => import("./components/pages/cnx/Signup"));
 const About = lazy(() => import("./components/pages/About/About"));
-const Accessoire = lazy(() =>
-  import("./components/pages/Accessoire/Accessoire")
-);
 const Occasion = lazy(() => import("./components/pages/Occasion/Occasion"));
+
+/*Profile Car */
+
+const ProfileCar = lazy(() => import("./components/pages/ProfileCar/ProfileCar"));
+
+/*Profile Client */
+
 const Profile = lazy(() => import("./components/pages/profile/Profile"));
 const ProfileClient = lazy(() =>
   import("./components/pages/profile/pages/ProfileClient/ProfileClient")
@@ -133,9 +137,10 @@ export const router = createBrowserRouter([
         element: <Occasion />,
       },
       {
-        path: "/accessoire",
-        element: <Accessoire />,
+        path: "/voitures/:voitureId",
+        element: <ProfileCar />,
       },
+  
       {
         path: "/signin",
         element: <Signin />,

@@ -21,12 +21,12 @@ function BanniereCars() {
 
   return (
     <div className={styles.cars}>
-      <h2>Les marques les plus populaires</h2>
+      <h2>Les Voitures Préférées par Nos Clients </h2>
       <div className={styles.carsList}>
         <ul>
           {cars[0]
             ? cars.map((car) => (
-                <Link key={car.voitureid}>
+                <Link key={car.voitureid} to={`/voitures/${car.voitureid}`}>
                   <img src={car.image} alt={car.titre} />
                   <div className={styles.details}>
                     <h3>{car.titre}</h3>

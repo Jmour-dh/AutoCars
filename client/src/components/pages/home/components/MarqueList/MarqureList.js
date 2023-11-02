@@ -30,7 +30,7 @@ function MarqureList() {
       <div className={styles.CarCard}>
         {marques[0]
           ? marques.map((car) => (
-              <Link key={car.voitureid}>
+              <Link key={car.voitureid} to={`/voitures/${car.voitureid}`}>
                 <img
                   src={car.image} alt={car.titre}
                 />

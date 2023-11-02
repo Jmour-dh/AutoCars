@@ -73,14 +73,7 @@ function Header() {
                     l'Occasion
                   </NavLink>
                 </li>
-                <li className="ml-10 mr-10">
-                  <NavLink
-                    className={({ isActive }) => (isActive ? "Linkactive" : "")}
-                    to="/accessoire"
-                  >
-                    Accessoires
-                  </NavLink>
-                </li>
+                
                 <li className="ml-10 mr-10">
                   <NavLink
                     className={({ isActive }) => (isActive ? "Linkactive" : "")}
@@ -118,14 +111,7 @@ function Header() {
                 l'Occasion
               </NavLink>
             </li>
-            <li className="ml-10 mr-10">
-              <NavLink
-                className={({ isActive }) => (isActive ? "Linkactive" : "")}
-                to="/accessoire"
-              >
-                Accessoires
-              </NavLink>
-            </li>
+            
             <li className="ml-10 mr-10">
               <NavLink
                 className={({ isActive }) => (isActive ? "Linkactive" : "")}
@@ -136,7 +122,7 @@ function Header() {
             </li>
 
             <li className=" ml-10 mr-10">
-              <NavLink to="/signin">
+              <NavLink to="/signin" className={({ isActive }) => (isActive ? "Linkactive" : "")}>
                 <AiOutlineUser style={{ marginBottom: "2px" }} />
               </NavLink>
             </li>
