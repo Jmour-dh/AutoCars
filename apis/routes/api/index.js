@@ -6,6 +6,7 @@ const apiMar = require("./marques");
 const apiNote = require("./notes");
 const apiFilter = require("./filter");
 const apiMess = require("./message");
+const apiAvis = require("./avis");
 
 router.use("/users", apiUsers);
 router.use("/auth", apiAuth);
@@ -14,5 +15,6 @@ router.use("/marques", apiMar);
 router.use("/notes", apiNote);
 router.use("/filter", apiFilter);
 router.use("/message", apiMess);
+router.use("/avis", apiAvis);
 
 module.exports = router;

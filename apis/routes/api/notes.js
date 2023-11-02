@@ -5,10 +5,15 @@ router.get("/", async (req, res) => {
   try {
     // Exécutez une requête SQL pour sélectionner les données de la voiture par ID
     const result = await pool.query(
-      `SELECT v.voitureid, v.titre, v.kilometrage, v.anneecirculation, v.carburant,  v.image, v.prix, a.note
+      `SELECT v.voitureid, v.titre, v.kilometrage, v.anneecirculation, v.carburant, v.image, v.prix, a.note
       FROM voiture v
       INNER JOIN avis a ON v.voitureid = a.voitureid
-      WHERE a.note >= 3;
+      WHERE a.note >= 3
+      AND a.dateavis = (
+        SELECT MAX(dateavis) 
+        FROM avis 
+        WHERE avis.voitureid = v.voitureid
+      );
       `
     );
     // Si la voiture est trouvé, renvoyez les données au format JSON

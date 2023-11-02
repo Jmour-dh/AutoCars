@@ -1,19 +1,25 @@
-// Importez les dépendances nécessaires
 import React, { useState, useEffect } from "react";
 import styles from "./ProfileCar.module.scss";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import { useParams, useNavigate } from "react-router-dom";
 import { FaArrowLeft } from "react-icons/fa6";
+import { BsStarFill } from "react-icons/bs";
 
+import { format } from "date-fns";
 import { useContext } from "react";
 import { AuthContext } from "../../context";
 
-// Composant de la page de détail de la voiture
+import { parseISO, isValid } from "date-fns";
+
 function ProfileCar() {
   const { user } = useContext(AuthContext);
-  const { voitureId } = useParams(); // Obtenez l'ID de la voiture depuis les paramètres de l'URL
+  const { voitureId } = useParams();
   const [voiture, setVoiture] = useState({});
+  const [avisList, setAvisList] = useState([]);
+  const [selectedStar, setSelectedStar] = useState(0);
+  const [avisEnvoye, setAvisEnvoye] = useState(false);
+
   const navigate = useNavigate();
 
   const [showTelephoneModal, setShowTelephoneModal] = useState(false);
@@ -27,8 +33,19 @@ function ProfileCar() {
     subject: `Intérêt pour la voiture ${voiture.titre}`,
   });
 
+  const initialAvisState = {
+    note: 0,
+    commentaire: "",
+    nomvisiteur: "", // Modification ici
+    prenomvisiteur: "", // Modification ici
+    emailvisiteur: "", // Modification ici
+  };
+
+  const [avis, setAvis] = useState(initialAvisState);
+
+  const [hoveredStars, setHoveredStars] = useState(0);
+
   useEffect(() => {
-    // Effectuez la requête uniquement si l'ID de la voiture est défini
     if (voitureId) {
       const fetchVoiture = async () => {
         try {
@@ -39,32 +56,50 @@ function ProfileCar() {
             "Erreur lors de la récupération de la voiture par ID :",
             error
           );
-          // Gérez l'erreur selon vos besoins
+        }
+      };
+
+      const fetchAvis = async () => {
+        try {
+          const response = await axios.get(`/api/avis/${voitureId}`);
+          setAvisList(response.data);
+        } catch (error) {
+          console.error("Erreur lors de la récupération des avis :", error);
         }
       };
 
       fetchVoiture();
+      fetchAvis();
     }
-  }, [voitureId]); // Assurez-vous de dépendre de voitureId pour recharger les données lorsque l'ID change
+  }, [voitureId]);
 
-  // Affichez un message si l'ID de la voiture n'est pas défini
   if (!voitureId) {
     return (
       <div>Aucune voiture sélectionnée. Veuillez sélectionner une voiture.</div>
     );
   }
 
+  const userInfo = user
+    ? {
+        nom: user.nom,
+        prenom: user.prenom,
+        email: user.email,
+        user_id: user.user_id,
+      }
+    : {
+        nom: contactInfo.lastName,
+        prenom: contactInfo.firstName,
+        email: contactInfo.email,
+        user_id: null,
+      };
+
   const handleTelephoneClick = () => {
-    // Affichez la modal lorsque le bouton "Téléphone" est cliqué
     setShowTelephoneModal(true);
   };
 
   const handleMessageClick = () => {
-    // Affichez la modal lorsque le bouton "Message" est cliqué
     setShowMessageModal(true);
-    const subject = `Intérêt pour la voiture ${voiture.titre} `;
-
-    // Mettez à jour les informations de contact avec le nouveau sujet
+    const subject = `Intérêt pour la voiture ${voiture.titre}`;
     setContactInfo((prevInfo) => ({
       ...prevInfo,
       subject,
@@ -72,17 +107,14 @@ function ProfileCar() {
   };
 
   const handleCloseTelephoneModal = () => {
-    // Fermez la modal Téléphone
     setShowTelephoneModal(false);
   };
 
   const handleCloseMessageModal = () => {
-    // Fermez la modal Message
     setShowMessageModal(false);
   };
 
   const handleInputChange = (e) => {
-    // Mettez à jour les informations de contact lorsque les champs sont modifiés
     const { name, value } = e.target;
     setContactInfo((prevInfo) => ({
       ...prevInfo,
@@ -90,32 +122,77 @@ function ProfileCar() {
     }));
   };
 
+  const handleAvisInputChange = (e) => {
+    const { name, value } = e.target;
+    setAvis((prevAvis) => ({
+      ...prevAvis,
+      [name]: value,
+    }));
+  };
+
   const handleInputClick = (e) => {
-    // Empêchez la propagation de l'événement de clic
     e.stopPropagation();
   };
 
   const handleSendMessage = async () => {
     try {
-      // Construire l'objet à envoyer dans la requête POST
       const messageData = {
-        nom: user ? user.nom : contactInfo.lastName,
-        prenom: user ? user.prenom : contactInfo.firstName,
+        ...userInfo,
         voitureid: voitureId,
-        user_id: user ? user.user_id : null,
         objet: contactInfo.subject,
         message: contactInfo.message,
       };
 
-      // Envoyer la requête POST avec Axios
       const response = await axios.post("/api/message", messageData);
 
-      // Logique à exécuter après l'envoi du message (par exemple, fermer la modal)
       console.log("Message envoyé avec succès !", response.data);
       handleCloseMessageModal();
     } catch (error) {
       console.error("Erreur lors de l'envoi du message :", error);
-      // Gérer l'erreur selon vos besoins (afficher un message d'erreur, etc.)
+    }
+  };
+
+  const handleSendAvis = async (e) => {
+    e.preventDefault();
+
+    try {
+      if (avis.note && avis.commentaire) {
+        const avisData = {
+          ...userInfo,
+          voitureid: voitureId,
+          note: avis.note,
+          commentaire: avis.commentaire,
+          dateavis: new Date(),
+        };
+
+        if (user) {
+          // Utilisateur connecté, utilisez les informations du contexte d'authentification
+          avisData.user_id = user.user_id;
+          avisData.nomvisiter = user.nom;
+          avisData.prenomvisiter = user.prenom;
+          avisData.emailvisiter = user.email;
+        } else {
+          // Utilisateur non connecté, utilisez les informations de contactInfo
+          avisData.user_id = null;
+          avisData.nomvisiter = avis.nomvisiteur;
+          avisData.prenomvisiter = avis.prenomvisiteur;
+          avisData.emailvisiter = avis.emailvisiteur;
+        }
+
+        const response = await axios.post("/api/avis", avisData);
+
+        console.log("Avis envoyé avec succès !", response.data);
+        setAvisEnvoye(true);
+        setAvis(initialAvisState); // Réinitialiser les champs du formulaire
+        setSelectedStar(0);
+        setHoveredStars(0);
+      } else {
+        console.log("Veuillez remplir tous les champs obligatoires");
+        setSelectedStar(0);
+        setHoveredStars(0);
+      }
+    } catch (error) {
+      console.error("Erreur lors de l'envoi de l'avis :", error);
     }
   };
 
@@ -148,23 +225,160 @@ function ProfileCar() {
             <p className="p-10 m-5 ">{voiture.prix} €</p>
             <div className={styles.contact}>
               <button
-                className="btn  btn-success m-5"
+                className="btn btn-success m-5"
                 onClick={handleTelephoneClick}
               >
                 Télephone
               </button>
               <button
-                className="btn btn-secondary  m-5"
+                className="btn btn-secondary m-5"
                 onClick={handleMessageClick}
               >
                 Message
               </button>
             </div>
           </div>
+          <div className={styles.avisLists}>
+            <h3>Avis des utilisateurs</h3>
+            {avisList.length > 0 ? (
+              <ul>
+                {avisList.map((avis) => (
+                  <li key={avis.id} className={styles.avisItem}>
+                    <p className="p-5">
+                      <span className={styles.avisUser}>
+                        {avis.prenomvisiter}
+                      </span>
+                      a donné une note de
+                      <span className={styles.avisStars}>
+                        {[...Array(avis.note)].map((star, index) => (
+                          <BsStarFill color="#f39c12" key={index} />
+                        ))}
+                      </span>
+                    </p>
+                    <p className="p-5">Commentaire: {avis.commentaire}</p>
+                    <p className="p-5">
+                      Date:{" "}
+                      {isValid(parseISO(avis.dateavis))
+                        ? format(parseISO(avis.dateavis), "dd/MM/yyyy HH:mm:ss")
+                        : "Date non valide"}
+                    </p>
+                  </li>
+                ))}
+              </ul>
+            ) : (
+              <p>Aucun avis disponible pour le moment.</p>
+            )}
+
+            <div className={styles.laisserAvis}>
+              <h3>Laissez votre avis</h3>
+
+              {!avisEnvoye ? (
+                <>
+                  <form onSubmit={handleSendAvis}>
+                    <div className={styles.stars}>
+                      {[1, 2, 3, 4, 5].map((index) => (
+                        <BsStarFill
+                          key={index}
+                          className={`${styles.star} ${
+                            index <= (hoveredStars || selectedStar)
+                              ? styles.hovered
+                              : ""
+                          }`}
+                          onClick={() => {
+                            setAvis((prevAvis) => ({
+                              ...prevAvis,
+                              note: index,
+                            }));
+                            setSelectedStar(index);
+                          }}
+                          onMouseEnter={() => setHoveredStars(index)}
+                          onMouseLeave={() => setHoveredStars(0)}
+                        />
+                      ))}
+                    </div>
+                    <div className="mb-3">
+                      <label htmlFor="commentaire" className={styles.formLabel}>
+                        Commentaire
+                      </label>
+                      <textarea
+                        className={styles.formControl}
+                        id="commentaire"
+                        name="commentaire"
+                        onClick={handleInputClick}
+                        onChange={handleAvisInputChange}
+                      ></textarea>
+                    </div>
+                    {!user && (
+                      <>
+                        <div className="mb-3">
+                          <label
+                            htmlFor="nomvisiteur"
+                            className={styles.formLabel}
+                          >
+                            Nom
+                          </label>
+                          <input
+                            type="text"
+                            className={styles.formControl}
+                            id="nomvisiteur"
+                            name="nomvisiteur"
+                            value={avis.nomvisiteur}
+                            onChange={handleAvisInputChange}
+                          />
+                        </div>
+                        <div className="mb-3">
+                          <label
+                            htmlFor="prenomvisiteur"
+                            className={styles.formLabel}
+                          >
+                            Prénom
+                          </label>
+                          <input
+                            type="text"
+                            className={styles.formControl}
+                            id="prenomvisiteur"
+                            name="prenomvisiteur"
+                            value={avis.prenomvisiteur}
+                            onChange={handleAvisInputChange}
+                          />
+                        </div>
+                        <div className="mb-3">
+                          <label
+                            htmlFor="emailvisiteur"
+                            className={styles.formLabel}
+                          >
+                            Email
+                          </label>
+                          <input
+                            type="email"
+                            className={styles.formControl}
+                            id="emailvisiteur"
+                            name="emailvisiteur"
+                            value={avis.emailvisiteur}
+                            onChange={handleAvisInputChange}
+                          />
+                        </div>
+                      </>
+                    )}
+                    <div className="mb-3">
+                      <button
+                        type="submit"
+                        className="btn btn-primary"
+                        onClick={handleSendAvis}
+                      >
+                        Envoyer l'avis
+                      </button>
+                    </div>
+                  </form>
+                </>
+              ) : (
+                <p>Votre avis a été envoyé avec succès !</p>
+              )}
+            </div>
+          </div>
         </div>
       </div>
 
-      {/* Modal pour afficher le numéro de téléphone */}
       {showTelephoneModal && (
         <div
           className={styles.modalBackdrop}
@@ -182,10 +396,12 @@ function ProfileCar() {
         </div>
       )}
 
-      {/* Modal pour envoyer un message */}
       {showMessageModal && (
         <div className={styles.modalBackdrop} onClick={handleCloseMessageModal}>
-          <div className={styles.modalContent} onClick={(e) => e.stopPropagation()}>
+          <div
+            className={styles.modalContent}
+            onClick={(e) => e.stopPropagation()}
+          >
             <h3>Envoyer un message</h3>
             {user ? (
               <>
@@ -197,7 +413,7 @@ function ProfileCar() {
                     className={styles.formControl}
                     id="message"
                     name="message"
-                    onClick={handleInputClick} // Empêcher la propagation de l'événement de clic
+                    onClick={handleInputClick}
                     onChange={handleInputChange}
                   ></textarea>
                 </div>
@@ -260,7 +476,7 @@ function ProfileCar() {
                     className={styles.formControl}
                     id="message"
                     name="message"
-                    onClick={handleInputClick} // Empêcher la propagation de l'événement de clic
+                    onClick={handleInputClick}
                     onChange={handleInputChange}
                   ></textarea>
                 </div>
