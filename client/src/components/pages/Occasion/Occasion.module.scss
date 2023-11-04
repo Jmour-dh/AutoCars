@@ -1,13 +1,23 @@
-// Occasion.module.scss
+@use "../../../assets/styles/mixins" as mixin;
 
 .Occasion {
   display: flex;
   padding: 20px;
   min-height: 100vh;
 
+  @include mixin.xs {
+   flex-direction: column;
+   justify-content: center;
+   align-items: center;
+  }
+
   .filterSection {
     width: 30%;
     margin-right: 20px;
+
+    @include mixin.xs {
+      width: 100%;
+     }
 
     .BanniereFilter {
       border: 1px solid #e0e0e0;
@@ -28,6 +38,11 @@
     ul {
       display: flex;
       flex-wrap: wrap;
+
+      @include mixin.xs {
+        align-items: center;
+        justify-content: center;
+       }
 
       li {
         width: calc(25% - 20px);

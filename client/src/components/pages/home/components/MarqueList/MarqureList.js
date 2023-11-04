@@ -1,12 +1,14 @@
 import styles from "./MarqureList.module.scss";
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
+import { FaArrowLeft } from "react-icons/fa6";
 
 function MarqureList() {
   const { marque } = useParams();
   const [marques, setMarques] = useState([]);
+  const navigate = useNavigate();
 
   useEffect(() => {
     // Définir le chemin de l'API en fonction de votre structure
@@ -25,8 +27,14 @@ function MarqureList() {
       });
   }, [marque]);
   return (
+<>
+    <Link className="btn btn-primary" onClick={() => navigate(-1)}>
+          <FaArrowLeft className="m-5" />
+          Retour
+        </Link>
     <div className={styles.allCars}>
       <h2>Liste des voiture avec la marque {marque}</h2>
+      
       <div className={styles.CarCard}>
         {marques[0]
           ? marques.map((car) => (
@@ -50,6 +58,7 @@ function MarqureList() {
           : ""}
       </div>
     </div>
+    </>
   );
 }
 

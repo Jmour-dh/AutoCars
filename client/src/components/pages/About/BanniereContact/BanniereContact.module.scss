@@ -1,3 +1,5 @@
+@use "../../../../assets/styles/mixins" as mixin;
+
 .BanContact {
   width: 100%;
   height: 600px;
@@ -8,6 +10,11 @@
   align-items: center;
   margin: 20px;
   padding: 20px;
+
+  @include mixin.xs {
+    height: 100%;
+    width: 100%;
+  }
 
   h2 {
     font-family: var(--font-family-1);
@@ -24,6 +31,10 @@
     box-shadow: 0px 10px 13px -7px #000000, 5px 5px 15px 5px rgba(0, 0, 0, 0);
     border-radius: 15px;
 
+    @include mixin.xs {
+     flex-direction: column;
+    }
+
     .contact {
       width: 400px;
       height: 500px;
@@ -35,6 +46,7 @@
       display: flex;
       justify-content: center;
       align-items: center;
+     
 
       form {
         width: 80%;

@@ -32,8 +32,8 @@
 
     ul {
       display: flex;
-      flex-wrap: nowrap; // Ajout de cette ligne
-      overflow-x: auto; // Pour permettre le défilement horizontal si la liste est trop large
+      flex-wrap: nowrap;
+      overflow-x: auto;
       @include mixin.xs {
         flex-direction: column;
         height: 100%;
