@@ -30,16 +30,8 @@ function HeaderMenu() {
           )}
           {user.role_id === 3 && (
             <ul
-             className={`${styles.MenuContainer} d-flex flex-column align-items-center card p-20`}
+              className={`${styles.MenuContainer} d-flex flex-column align-items-center card p-20`}
             >
-              <li className="mr-20">
-                <NavLink
-                  className={({ isActive }) => (isActive ? "Linkactive" : "")}
-                  to="/"
-                >
-                  Accueil
-                </NavLink>
-              </li>
               <li className="mr-20">
                 <NavLink
                   className={({ isActive }) => (isActive ? "Linkactive" : "")}
@@ -55,7 +47,7 @@ function HeaderMenu() {
           )}
           {user.role_id !== 2 && user.role_id !== 3 && (
             <ul
-             className={`${styles.MenuContainer} d-flex flex-column align-items-center card p-20`}
+              className={`${styles.MenuContainer} d-flex flex-column align-items-center card p-20`}
             >
               <li className="mr-20">
                 <NavLink
@@ -98,7 +90,7 @@ function HeaderMenu() {
         </>
       ) : (
         <ul
-         className={`${styles.MenuContainer} d-flex flex-column align-items-center card p-20`}
+          className={`${styles.MenuContainer} d-flex flex-column align-items-center card p-20`}
         >
           <li className="mr-20">
             <NavLink

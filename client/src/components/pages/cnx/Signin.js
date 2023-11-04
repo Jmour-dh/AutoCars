@@ -51,9 +51,9 @@ function Signin() {
     <>
       {user ? (
         user.role_id === 2 ? (
-          <Navigate to="/admin" />
+          <Navigate to="/admin/messages/list" />
         ) : user.role_id === 3 ? (
-          <Navigate to="/profilePersonnel" />
+          <Navigate to="/profilePersonnel/messages/list" />
         ) : (
           <Navigate to="/profile/details/tabBord" />
         )

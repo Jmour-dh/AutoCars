@@ -116,19 +116,37 @@ const AdminMessage = lazy(() =>
   import("./components/pages/admin/pages/AdminMessage/AdminMessage")
 );
 
-const AdminMessageList = lazy(() => import("./components/pages/admin/pages/AdminMessage/pages/AdminMessageList/AdminMessageList"));
+const AdminMessageList = lazy(() =>
+  import(
+    "./components/pages/admin/pages/AdminMessage/pages/AdminMessageList/AdminMessageList"
+  )
+);
 
 /*Admin Contact */
 const AdminContacts = lazy(() =>
   import("./components/pages/admin/pages/AdminContacts/AdminContacts")
 );
-const AdminContactsList = lazy(() => import("./components/pages/admin/pages/AdminContacts/pages/AdminContactsList/AdminContactsList"));
+const AdminContactsList = lazy(() =>
+  import(
+    "./components/pages/admin/pages/AdminContacts/pages/AdminContactsList/AdminContactsList"
+  )
+);
 
 /*Admin Avis */
 
-const AdminAvis = lazy(() =>import("./components/pages/admin/pages/AdminAvis/AdminAvis"));
-const AdminAvisListNoValid = lazy(() => import("./components/pages/admin/pages/AdminAvis/pages/AdminAvisListNoValid/AdminAvisListNoValid"))
-const AdminAvisListValid = lazy(() => import("./components/pages/admin/pages/AdminAvis/pages/AdminAvisListValid/AdminAvisListValid"))
+const AdminAvis = lazy(() =>
+  import("./components/pages/admin/pages/AdminAvis/AdminAvis")
+);
+const AdminAvisListNoValid = lazy(() =>
+  import(
+    "./components/pages/admin/pages/AdminAvis/pages/AdminAvisListNoValid/AdminAvisListNoValid"
+  )
+);
+const AdminAvisListValid = lazy(() =>
+  import(
+    "./components/pages/admin/pages/AdminAvis/pages/AdminAvisListValid/AdminAvisListValid"
+  )
+);
 
 export const router = createBrowserRouter([
   {
@@ -282,7 +300,7 @@ export const router = createBrowserRouter([
                 path: "list",
                 element: <AdminMessageList />,
               },
-            ]
+            ],
           },
           {
             path: "contacts",
@@ -292,7 +310,7 @@ export const router = createBrowserRouter([
                 path: "list",
                 element: <AdminContactsList />,
               },
-            ]
+            ],
           },
           {
             path: "avis",
@@ -310,7 +328,7 @@ export const router = createBrowserRouter([
                 index: true,
                 loader: async () => redirect("/admin/avis/listNoValid"),
               },
-            ]
+            ],
           },
         ],
       },
@@ -321,6 +339,90 @@ export const router = createBrowserRouter([
             <ProfilePersonnel />
           </ProtectedRoute>
         ),
+        children: [
+          {
+            path: "users",
+            element: <AdminUsers />,
+            children: [
+              {
+                path: "list",
+                element: <AdminUsersList />,
+              },
+              {
+                path: "new",
+                element: <AdminUsersAdd />,
+              },
+              {
+                path: "editUser/:userId",
+                element: <AdminUsersEdit />,
+              },
+              {
+                index: true,
+                loader: async () => redirect("/admin/users/list"),
+              },
+            ],
+          },
+          {
+            path: "cars",
+            element: <AdminCars />,
+            children: [
+              {
+                path: "list",
+                element: <AdminCarsList />,
+              },
+              {
+                path: "new",
+                element: <AdminCarsAdd />,
+              },
+              {
+                path: "editCars/:voitureId",
+                element: <AdminCarsEdit />,
+              },
+              {
+                index: true,
+                loader: async () => redirect("/admin/cars/list"),
+              },
+            ],
+          },
+          {
+            path: "messages",
+            element: <AdminMessage />,
+            children: [
+              {
+                path: "list",
+                element: <AdminMessageList />,
+              },
+            ],
+          },
+          {
+            path: "contacts",
+            element: <AdminContacts />,
+            children: [
+              {
+                path: "list",
+                element: <AdminContactsList />,
+              },
+            ],
+          },
+          {
+            path: "avis",
+            element: <AdminAvis />,
+            children: [
+              {
+                path: "listNoValid",
+                element: <AdminAvisListNoValid />,
+              },
+              {
+                path: "listValid",
+                element: <AdminAvisListValid />,
+              },
+              {
+                index: true,
+                loader: async () => redirect("/admin/avis/listNoValid"),
+              },
+            ],
+          },
+        ],
       },
     ],
   },

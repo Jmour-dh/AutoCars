@@ -8,7 +8,7 @@ import HeaderMenu from "./components/HeaderMenu/HeaderMenu";
 import logo from "../../assets/images/Logo.png";
 
 function Header() {
-  const { user} = useContext(AuthContext);
+  const { user } = useContext(AuthContext);
   const [showMenu, setShowMenu] = useState(false);
 
   return (
@@ -40,14 +40,6 @@ function Header() {
                 <li className="mr-10">
                   <NavLink
                     className={({ isActive }) => (isActive ? "Linkactive" : "")}
-                    to="/"
-                  >
-                    Accueil
-                  </NavLink>
-                </li>
-                <li className="mr-10">
-                  <NavLink
-                    className={({ isActive }) => (isActive ? "Linkactive" : "")}
                     to="/profilPersonnel"
                   >
                     Profil personnel
@@ -73,7 +65,7 @@ function Header() {
                     l'Occasion
                   </NavLink>
                 </li>
-                
+
                 <li className="ml-10 mr-10">
                   <NavLink
                     className={({ isActive }) => (isActive ? "Linkactive" : "")}
@@ -111,7 +103,7 @@ function Header() {
                 l'Occasion
               </NavLink>
             </li>
-            
+
             <li className="ml-10 mr-10">
               <NavLink
                 className={({ isActive }) => (isActive ? "Linkactive" : "")}
@@ -122,7 +114,10 @@ function Header() {
             </li>
 
             <li className=" ml-10 mr-10">
-              <NavLink to="/signin" className={({ isActive }) => (isActive ? "Linkactive" : "")}>
+              <NavLink
+                to="/signin"
+                className={({ isActive }) => (isActive ? "Linkactive" : "")}
+              >
                 <AiOutlineUser style={{ marginBottom: "2px" }} />
               </NavLink>
             </li>
