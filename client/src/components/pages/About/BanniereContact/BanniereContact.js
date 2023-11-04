@@ -183,7 +183,15 @@ function BanniereContact() {
           )}
         </div>
         <div className={styles.card}>
-          {/* ... (le reste de votre composant) */}
+          <h3>Horaire d'ouverture</h3>
+          <p>Lun: 08:45 - 12:00, 14:00 - 18:00 </p>
+          <p>Mar: 08:45 - 12:00, 14:00 - 18:00 </p>
+          <p>Jeu: 08:45 - 12:00, 14:00 - 18:00 </p>
+          <p>Vend: 08:45 - 12:00, 14:00 - 18:00 </p>
+          <p>Sam: 08:45 - 12:00, 14:00 - 18:00 </p>
+          <p>Dim: Fermé </p>
+          <h3>Notre adresse</h3>
+          <p>Auto Cars, 32 Rue de Nantes, Lyon </p>
         </div>
       </div>
     </div>
