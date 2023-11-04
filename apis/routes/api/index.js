@@ -7,6 +7,7 @@ const apiNote = require("./notes");
 const apiFilter = require("./filter");
 const apiMess = require("./message");
 const apiAvis = require("./avis");
+const apiContact = require("./contact");
 
 router.use("/users", apiUsers);
 router.use("/auth", apiAuth);
@@ -16,5 +17,6 @@ router.use("/notes", apiNote);
 router.use("/filter", apiFilter);
 router.use("/message", apiMess);
 router.use("/avis", apiAvis);
+router.use("/contact", apiContact);
 
 module.exports = router;

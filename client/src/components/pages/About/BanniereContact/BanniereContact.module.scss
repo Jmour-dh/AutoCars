@@ -1,0 +1,95 @@
+.BanContact {
+  width: 100%;
+  height: 600px;
+  margin: 15px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 20px;
+  padding: 20px;
+
+  h2 {
+    font-family: var(--font-family-1);
+    font-size: 2rem;
+    padding: 10px;
+    margin: 5px;
+  }
+
+  .ctcContainer {
+    background-color: rgb(247, 247, 247);
+    display: flex;
+    -webkit-box-shadow: 0px 10px 13px -7px #000000,
+      5px 5px 15px 5px rgba(0, 0, 0, 0);
+    box-shadow: 0px 10px 13px -7px #000000, 5px 5px 15px 5px rgba(0, 0, 0, 0);
+    border-radius: 15px;
+
+    .contact {
+      width: 400px;
+      height: 500px;
+      margin: 10px 20px;
+      border-radius: 15px;
+      -webkit-box-shadow: 0px 10px 13px -7px #000000,
+        5px 5px 15px 5px rgba(0, 0, 0, 0);
+      box-shadow: 0px 10px 13px -7px #000000, 5px 5px 15px 5px rgba(0, 0, 0, 0);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      form {
+        width: 80%;
+        display: flex;
+        flex-direction: column;
+      }
+
+      .form {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        height: 100%;
+        justify-content: center;
+
+        .formLabel {
+          margin-bottom: 5px;
+        }
+
+        .formControl {
+          width: 80%;
+          padding: 8px;
+          margin-bottom: 10px;
+          border: 1px solid #ccc;
+          border-radius: 4px;
+          box-sizing: border-box;
+        }
+
+        .btn2 {
+          margin-right: 10px;
+        }
+      }
+    }
+
+    .card {
+      width: 400px;
+      height: 500px;
+      margin: 10px 20px;
+
+      text-align: center;
+      -webkit-box-shadow: 0px 10px 13px -7px #000000,
+        5px 5px 15px 5px rgba(0, 0, 0, 0);
+      box-shadow: 0px 10px 13px -7px #000000, 5px 5px 15px 5px rgba(0, 0, 0, 0);
+      border-radius: 15px;
+
+      h3 {
+        font-size: 1.4rem;
+        font-family: var(--font-family-1);
+        text-decoration: underline;
+        margin: 15px;
+      }
+
+      p {
+        padding: 10px;
+        font-size: 1.3rem;
+      }
+    }
+  }
+}
