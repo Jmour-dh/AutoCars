@@ -18,7 +18,9 @@ const Occasion = lazy(() => import("./components/pages/Occasion/Occasion"));
 
 /*Profile Car */
 
-const ProfileCar = lazy(() => import("./components/pages/ProfileCar/ProfileCar"));
+const ProfileCar = lazy(() =>
+  import("./components/pages/ProfileCar/ProfileCar")
+);
 
 /*Profile Client */
 
@@ -108,10 +110,19 @@ const AdminCarsEdit = lazy(() =>
   )
 );
 
+/* Admin Message */
+
+const AdminMessage = lazy(() =>
+  import("./components/pages/admin/pages/AdminMessage/AdminMessage")
+);
+
+const AdminMessageList = lazy(() => import("./components/pages/admin/pages/AdminMessage/pages/AdminMessageList/AdminMessageList"));
+
 /*Admin Contact */
 const AdminContacts = lazy(() =>
   import("./components/pages/admin/pages/AdminContacts/AdminContacts")
 );
+const AdminContactsList = lazy(() => import("./components/pages/admin/pages/AdminContacts/pages/AdminContactsList/AdminContactsList"));
 
 export const router = createBrowserRouter([
   {
@@ -140,7 +151,7 @@ export const router = createBrowserRouter([
         path: "/voitures/:voitureId",
         element: <ProfileCar />,
       },
-  
+
       {
         path: "/signin",
         element: <Signin />,
@@ -258,8 +269,24 @@ export const router = createBrowserRouter([
             ],
           },
           {
+            path: "messages",
+            element: <AdminMessage />,
+            children: [
+              {
+                path: "list",
+                element: <AdminMessageList />,
+              },
+            ]
+          },
+          {
             path: "contacts",
             element: <AdminContacts />,
+            children: [
+              {
+                path: "list",
+                element: <AdminContactsList />,
+              },
+            ]
           },
         ],
       },

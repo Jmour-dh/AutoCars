@@ -6,6 +6,8 @@
   border: 1px solid var(--background-color);
   flex: 0 0 200px;
   height: 100%;
+  font-family: var(--font-family-1);
+  text-align: center;
 
   @include mixins.xs {
     flex: 0 0 auto;

@@ -7,7 +7,7 @@ function Admin() {
   return (
     <div className={`d-flex flex-fill p-20 ${styles.container}`}>
       <AdminNav/>
-      <div className="d-flex flex-column flex-fill">
+      <div className="d-flex flex-column flex-fill mh-80vh">
         <Suspense>
           <Outlet />
         </Suspense>

@@ -1,14 +1,14 @@
 import React, { Suspense } from "react";
 import { Outlet, useLocation } from "react-router-dom";
-import AdminContactsNav from "./components/AdminContactsNav/AdminContactsNav"
+import AdminMessageNav from "./components/AdminMessageNav/AdminMessageNav";
 
-function AdminContacts() {
+function AdminMessage() {
   const { key } = useLocation();
   return (
     <div className="d-flex flex-column flex-fill">
-      <h4 className="mb-20">Gestion des contacts</h4>
+      <h4 className="mb-20">Gestion des messages</h4>
       <div className="flex-fill d-flex flex-column">
-        <AdminContactsNav />
+        <AdminMessageNav />
         <div className="flex-fill d-flex flex-column">
           <Suspense>
             <Outlet key={key} />
@@ -16,7 +16,7 @@ function AdminContacts() {
         </div>
       </div>
     </div>
-  )
+  );
 }
 
-export default AdminContacts
+export default AdminMessage;

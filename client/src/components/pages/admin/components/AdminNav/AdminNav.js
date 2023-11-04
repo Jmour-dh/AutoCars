@@ -10,6 +10,24 @@ function AdminNav() {
     <ul className={`${styles.list} d-flex flex-column`}>
       <NavLink
         className={({ isActive }) => (isActive ? styles.lActive : "")}
+        to="messages/list"
+      >
+        Messages
+      </NavLink>
+      <NavLink
+        className={({ isActive }) => (isActive ? styles.lActive : "")}
+        to="avis"
+      >
+        Avis
+      </NavLink>
+      <NavLink
+        className={({ isActive }) => (isActive ? styles.lActive : "")}
+        to="contacts/list"
+      >
+        Contacts
+      </NavLink>
+      <NavLink
+        className={({ isActive }) => (isActive ? styles.lActive : "")}
         to="personnels"
       >
         Personnels
@@ -26,12 +44,7 @@ function AdminNav() {
       >
         Voitures
       </NavLink>
-      <NavLink
-        className={({ isActive }) => (isActive ? styles.lActive : "")}
-        to="contacts"
-      >
-        Contacts
-      </NavLink>
+
       <NavLink onClick={() => signout()}>Déconnexion</NavLink>
     </ul>
   );
