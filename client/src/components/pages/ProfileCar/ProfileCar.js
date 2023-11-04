@@ -36,9 +36,9 @@ function ProfileCar() {
   const initialAvisState = {
     note: 0,
     commentaire: "",
-    nomvisiteur: "", // Modification ici
-    prenomvisiteur: "", // Modification ici
-    emailvisiteur: "", // Modification ici
+    nomvisiteur: "", 
+    prenomvisiteur: "", 
+    emailvisiteur: "", 
   };
 
   const [avis, setAvis] = useState(initialAvisState);
