@@ -124,6 +124,12 @@ const AdminContacts = lazy(() =>
 );
 const AdminContactsList = lazy(() => import("./components/pages/admin/pages/AdminContacts/pages/AdminContactsList/AdminContactsList"));
 
+/*Admin Avis */
+
+const AdminAvis = lazy(() =>import("./components/pages/admin/pages/AdminAvis/AdminAvis"));
+const AdminAvisListNoValid = lazy(() => import("./components/pages/admin/pages/AdminAvis/pages/AdminAvisListNoValid/AdminAvisListNoValid"))
+const AdminAvisListValid = lazy(() => import("./components/pages/admin/pages/AdminAvis/pages/AdminAvisListValid/AdminAvisListValid"))
+
 export const router = createBrowserRouter([
   {
     path: "/",
@@ -285,6 +291,24 @@ export const router = createBrowserRouter([
               {
                 path: "list",
                 element: <AdminContactsList />,
+              },
+            ]
+          },
+          {
+            path: "avis",
+            element: <AdminAvis />,
+            children: [
+              {
+                path: "listNoValid",
+                element: <AdminAvisListNoValid />,
+              },
+              {
+                path: "listValid",
+                element: <AdminAvisListValid />,
+              },
+              {
+                index: true,
+                loader: async () => redirect("/admin/avis/listNoValid"),
               },
             ]
           },

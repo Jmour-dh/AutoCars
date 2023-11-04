@@ -47,13 +47,30 @@ router.post("/", async (req, res) => {
   );
 });
 
+router.get("/", async (req, res) => {
+  try {
+    // Execute a SQL query to select all reviews with active state
+    const result = await pool.query(
+      "SELECT avis.*, voiture.voitureid, voiture.titre FROM avis JOIN voiture ON avis.voitureid = voiture.voitureid WHERE avis.etat = true"
+    );
+
+    // Handle the result as needed
+    res.json(result.rows);
+  } catch (err) {
+    console.error("Erreur lors de la récupération des avis :", err);
+    res.status(500).json({ error: "Erreur serveur" });
+  }
+});
 
 router.get("/:voitureId", async (req, res) => {
   try {
     console.log(req.params);
 
     // Execute a SQL query to select data for the car by ID with active state
-    const result = await pool.query("SELECT * FROM avis WHERE voitureid = $1 AND etat = true", [req.params.voitureId]);
+    const result = await pool.query(
+      "SELECT * FROM avis WHERE voitureid = $1 AND etat = true",
+      [req.params.voitureId]
+    );
 
     // Handle the result as needed
     res.json(result.rows);
