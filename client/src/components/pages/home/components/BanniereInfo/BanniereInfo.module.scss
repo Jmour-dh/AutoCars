@@ -7,12 +7,23 @@
   justify-content: space-around;
   margin: 32px 16px;
 
+  @include mixin.xs {
+    flex-direction: column;
+    height: 100%;
+
+    img {
+      width: 100%;
+    }
+  }
+
 
   .details {
     display: flex;
     flex-direction: column;
     justify-content: center;
     font-family: var(--font-family-1);
+
+ 
 
     h2 {
       font-size: 1.5rem;

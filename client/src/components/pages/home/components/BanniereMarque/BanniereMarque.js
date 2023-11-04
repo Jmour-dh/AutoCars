@@ -20,12 +20,12 @@ function BanniereMarque() {
 
   return (
     <div className={styles.marques}>
-    <h2>Les marques les plus populaires</h2>
+      <h2>Les marques les plus populaires</h2>
       <div className={styles.logoMarque}>
-      
         {marques[0]
           ? marques.map((marque) => (
-              <Link to={`/marques/${marque.marque}`}
+              <Link
+                to={`/marques/${marque.marque}`}
                 key={marque.voitureid}
                 className="d-flex flex-column align-items-center justify-content-center"
               >
