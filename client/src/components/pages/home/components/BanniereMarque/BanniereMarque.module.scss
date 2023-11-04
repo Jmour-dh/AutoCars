@@ -13,17 +13,18 @@
 
   .logoMarque {
     display: grid;
-    grid-template-columns: repeat(3, minmax(154px, 1fr));
+    grid-template-columns: repeat(6, minmax(154px, 1fr));
     gap: 20px;
     justify-content: center;
     align-items: center;
     height: 137px;
     margin: 0 auto;
     margin-bottom: 20px;
-    
+
     @include mixin.xs {
       grid-template-columns: repeat(2, minmax(154px, 1fr));
       height: auto;
+      
     }
 
     a {
@@ -33,6 +34,7 @@
       border-radius: 10px;
       cursor: pointer !important;
 
+     
       &:hover {
         opacity: 0.8;
       }
